@@ -4,7 +4,7 @@ import time
 import os
 import pandas as pd
 
-path = 'C:/Users/malgo_000/Desktop/Web_scraping/twitter_scraping/'
+path = os.path.join(os.getcwd(), 'twitter_scraping/')
 path_ids = path + 'followers_ids_pharma/'
 path_user_info = path + 'followers_info/'
 
