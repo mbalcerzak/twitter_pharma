@@ -18,9 +18,9 @@ path = 'C:/Users/malgo_000/Desktop/Web_scraping/twitter_scraping/tweet_texts_pha
 
 def prepare_dataset(comp):
     df = pd.read_csv(path + '%s_tweets.txt' % comp, sep='|')
-    
-    print(comp + ' : ' + str(len(df)))    
-    
+
+    print(comp + ' : ' + str(len(df)))
+
     df['company'] = comp
     df['id'] = df['id'].apply(str)
     # cleaning tweet text
@@ -28,35 +28,35 @@ def prepare_dataset(comp):
     df['num_hash'] = df['hashtags'].apply(len)
     df['retweet'] = df['text'].apply(lambda s: True if 'RT ' in s else False)
     df['tagged'] = df['text'].apply(lambda s: re.findall(r'@(\w+)', s))
-    
+
     def clean_tweet(tweet):
         check = '(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)'
         return ' '.join(re.sub(check, ' ', tweet).split()).replace('RT ','')
-        
-    df['clean_tweet'] = [clean_tweet(tweet) for tweet in df['text']]    
+
+    df['clean_tweet'] = [clean_tweet(tweet) for tweet in df['text']]
     df['len'] = df['clean_tweet'].apply(len)
-    
+
     # getting time and date
     df['datetime'] = pd.to_datetime(df['created_at'])
     df['hour'] = df['datetime'].apply(lambda x: x.hour)
     df['month'] = df['datetime'].apply(lambda x: x.month)
     df['day'] = df['datetime'].apply(lambda x: x.day)
     df['year'] = df['datetime'].apply(lambda x: x.year)
-    
+
     df['z'] = np.abs(stats.zscore(df['fav']))
     df = df[df['z'] < 3]
-    
+
     return df
 
 def combine_tweets(company_names):
     df_all = df
     for company in company_names:
         df_all = df_all.append(prepare_dataset(company))
-        
+
     return df_all
 
-company_list = ['JNJCares', 'Roche', 'Pfizer', 'Novartis', 'BayerPharma', 
-                'Merck','GSK','Sanofi', 'abbvie', 'AbbottGlobal','LillyPad', 
+company_list = ['JNJCares', 'Roche', 'Pfizer', 'Novartis', 'BayerPharma',
+                'Merck','GSK','Sanofi', 'abbvie', 'AbbottGlobal','LillyPad',
                 'Amgen','bmsnews','GileadSciences']
 
 df = prepare_dataset('AstraZeneca')
@@ -84,7 +84,7 @@ sns.boxplot(x=df['fav'])
 
 # Time series
 time_fav = pd.Series(data=df['fav'].values, index=df['created_at'])
-time_fav.plot(color = 'r', label = 'favourites', legend = True)                
+time_fav.plot(color = 'r', label = 'favourites', legend = True)
 
 # for retweets
 time_rt = pd.Series(data=df['RT'].values, index=df['created_at'])
@@ -95,36 +95,36 @@ time_hsh = pd.Series(data=df['num_hash'].values, index=df['created_at'])
 time_hsh.plot(color = 'g', label = 'hashtags', legend = True)
 
 plt.figsize=(16, 4)
-plt.show()   
+plt.show()
 
 # barplot of number of hashtags per tweet
- 
+
 df['num_hash'].hist(color = 'b', label = 'numer of hashtags')
-plt.show()  
+plt.show()
 
 counter_hsh = collections.Counter(df['num_hash'])
-print(counter_hsh.most_common()) 
+print(counter_hsh.most_common())
 
 
 def most_common_words(text):
-    lemmatizer = WordNetLemmatizer() 
-    
+    lemmatizer = WordNetLemmatizer()
+
     all_tweets = []
     all_tweets_lem = []
-    
+
     for tweet in text:
         for word in tweet.split(' '):
             if word.lower() not in stop_words:
                 all_tweets.append(word.lower())
                 all_tweets_lem.append(lemmatizer.lemmatize(word.lower()))
-                
+
     return all_tweets, all_tweets_lem
-    
+
 all_tweets, all_tweets_lem = most_common_words(df['clean_tweet'])
-        
+
 # most common words
 counter = collections.Counter(all_tweets)
-print(counter.most_common(15))         
+print(counter.most_common(15))
 
 # most common lemmatized words
 counter_l = collections.Counter(all_tweets_lem)
@@ -154,10 +154,10 @@ plt.show()
 # most common hashtags
 hsh_list= []
 for h in list(df['hashtags']):
-    hsh_list += h 
-      
+    hsh_list += h
+
 counter_h = collections.Counter(hsh_list)
-print(counter_h.most_common(15)) 
+print(counter_h.most_common(15))
 
 # wordcloud of hashtags
 plt.figure(figsize = (30,30))
@@ -176,10 +176,10 @@ plt.show()
 # most popular tagged accounts
 tag_list= []
 for t in list(df['tagged']):
-    tag_list += t 
-      
+    tag_list += t
+
 counter_t = collections.Counter(tag_list)
-print(counter_t.most_common(15))   
+print(counter_t.most_common(15))
 
 
 # number of retweets
