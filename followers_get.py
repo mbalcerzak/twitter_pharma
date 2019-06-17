@@ -4,7 +4,7 @@ import time
 import os
 import pandas as pd
 
-path = 'C:/Users/malgo_000/Desktop/Web_scraping/twitter_scraping/'
+path = os.path.join(os.getcwd(), 'twitter_scraping/')
 path_ids = path + 'followers_ids_pharma/'
 path_user_info = path + 'followers_info/'
 
@@ -45,14 +45,6 @@ def get_followers_ids(screen_name):
 	
  	with open('%s_followers_id.txt' % screen_name, 'w',  encoding="utf8") as f:
  	    f.write('|'.join([str(x) for x in ids]))
-
-#for company in companies:
-# 	exists = os.path.isfile(path_ids + '%s_followers_id.txt' % company)
-# 	if exists:
-# 		print('The followers list of ' + company + ' already exists. Moving on.')
-# 		continue
-# 	else:
-# 		get_followers_ids(company)
 
 # =================== getting user info from IDs =============================
 def get_user_info(company):
@@ -122,7 +114,7 @@ def get_user_info(company):
             encoding="utf8") as f:
         f.write('|'.join([str(x) for x in users_not_found]))       
    
-# =================== scraping the relevant data =============================     
+# =================== scraping the data =============================     
 for company in companies:
     exists = os.path.isfile(path_ids + '%s_followers_id.txt' % company)
     
