@@ -1,7 +1,6 @@
 import tweepy
-from tweepy import Stream
+from tweepy import Stream, OAuthHandler
 from tweepy.streaming import StreamListener
-from tweepy import OAuthHandler
 import csv
 import time
 import os
@@ -21,6 +20,10 @@ auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 
 api = tweepy.API(auth,wait_on_rate_limit=True, wait_on_rate_limit_notify = True)
 
+company_names = ["AstraZeneca", "JNJCares", "Roche", "Pfizer","Novartis",
+				 "BayerPharma", "Merck","GSK","Sanofi", "AbbottNews",
+				 "AbbottGlobal","LillyPad", "Amgen","bmsnews","GileadSciences"]
+
 # ======================== scraping a list of followers IDs ================================
 # def get_followers(screen_name):
 # 	ids = []
@@ -28,15 +31,15 @@ api = tweepy.API(auth,wait_on_rate_limit=True, wait_on_rate_limit_notify = True)
 # 	    try:
 # 	        for page in tweepy.Cursor(api.followers_ids, screen_name = screen_name).pages():
 # 	            ids.extend(page)
-# 	        print(screen_name, len(ids))    
+# 	        print(screen_name, len(ids))
 # 	    except tweepy.TweepError:
 # 	        time.sleep(60*15)
 # 	        continue
-	
+
 # 	    except StopIteration:
 # 	        pass
 # 	    break
-	
+
 # 	with open('%s_followers_id.txt' % screen_name, 'w',  encoding="utf8") as f:
 # 	    f.write('|'.join([str(x) for x in ids]))
 
@@ -55,10 +58,7 @@ api = tweepy.API(auth,wait_on_rate_limit=True, wait_on_rate_limit_notify = True)
 
 # ======================== getting user info from IDs =====================================
 
-company_names = ["AstraZeneca", "JNJCares", "Roche", "Pfizer","Novartis",
-				"BayerPharma", "Merck","GSK","Sanofi", "AbbottNews",
-				"AbbottGlobal","LillyPad", "Amgen","bmsnews","GileadSciences"]
-# company_names = ["abbvie"]
+
 
 def get_user_info(company):
 
@@ -76,6 +76,8 @@ def get_user_info(company):
 	favourites_count_list = []
 	created_at_list = []
 
+	not_found_list = []
+
 	for i, follower in zip(range(len(followers_id_list)), followers_id_list):
 		if i%1000 == 0 and i >0 :
 			print(str(i) + ' users found so far. (' + round(i/len(followers_id_list)) + '%)')
@@ -92,16 +94,18 @@ def get_user_info(company):
 			statuses_list.append(user_id._json['statuses_count'])
 			favourites_count_list.append(user_id._json['favourites_count'])
 			created_at_list.append(user_id._json['created_at'])
+
 		except tweepy.error.TweepError:
 			print("user not found: " + follower)
+			not_found_list.append(follower)
 			continue
-	        
-	zipped_data = zip(users_list, bios_list, desc_list, 
+
+	zipped_data = zip(users_list, bios_list, desc_list,
 						follower_count_list, locations, statuses_list,
 						favourites_count_list, created_at_list)
 
 	# Creates a pandas dataframe containing user attributes
-	output_df = pd.DataFrame(list(zipped_data), columns=['user_id', 
+	output_df = pd.DataFrame(list(zipped_data), columns=['user_id',
 	                                                     'screen_name',
 	                                                     'bio',
 	                                                     'followers',
@@ -110,14 +114,17 @@ def get_user_info(company):
 	                                                     'favourites_count',
 	                                                     'created_at'])
 
-	print('FInished getting user info fo: ' + company)
+	print('Finished getting user info for: ' + company)
+	print(str(len(not_found_list)) + ' users not found')
 
-	#write the csv  
+	#write the csv
 	with open(path + 'followers_info/' + '%s_followers_info.txt' % company, 'w',  encoding="utf8") as f:
 	    writer = csv.writer(f, delimiter = '|')
 	    writer.writerow(list(output_df))
 	    writer.writerows(output_df.values)
 
+	with open(path + 'followers_info/' + '%s_followers_not_found.txt' % screen_name, 'w',  encoding="utf8") as f:
+	    f.write('|'.join([str(x) for x in not_found_list]))
 
 
 for company in company_names:
