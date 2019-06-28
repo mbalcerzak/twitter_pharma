@@ -4,7 +4,12 @@ import os
 
 path = os.path.join(os.getcwd(), 'tweet_texts_pharma/')
 
-# Twitter API credentials in a separate txt file
+# Twitter API credentials in a separate .txt file that looks like that:
+#   consumer_key = XXXXXXXXXXXXXXXXXXXXXXX
+#   consumer_secret = XXXXXXXXXXXXXXXXXXXX
+#   access_key = XXXXXXXXXXXX-XXXXXXXXXXXX
+#   access_secret = XXXXXXXXXXXXXXXXXXXXXX
+
 keys = {}
 
 for line in open(path + 'twitter_keys.txt', 'r').readlines():
@@ -48,8 +53,8 @@ def get_all_tweets(screen_name):
 
 # Pharmaceutical companies twitter usernames
 companies = ["AstraZeneca", "JNJCares", "Roche", "Pfizer","Novartis",
-                 "BayerPharma","Merck","GSK","Sanofi","abbvie", "AbbottNews",
-                 "AbbottGlobal","LillyPad","Amgen","bmsnews","GileadSciences"]
+             "BayerPharma","Merck","GSK","Sanofi","abbvie", "AbbottNews",
+             "AbbottGlobal","LillyPad","Amgen","bmsnews","GileadSciences"]
 
 for company in companies:
 	get_all_tweets(company)
