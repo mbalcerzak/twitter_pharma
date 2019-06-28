@@ -6,8 +6,18 @@ Belinda Parmar
 ## Packages used
 
 ```python
-import ...
+import pandas as pd
+import numpy as np
+import tweepy
+import csv
+import time
+import re
+import os
 
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud, ImageColorGenerator
+from PIL import Image
+from nltk.corpus import stopwords
 ```
 
 ## Data scources and refereces
