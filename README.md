@@ -13,14 +13,13 @@ import csv
 import time
 import re
 import os
-
+import wordcloud
 import matplotlib.pyplot as plt
-from wordcloud import WordCloud, ImageColorGenerator
-from PIL import Image
-from nltk.corpus import stopwords
+import nltk
+import PIL
 ```
 
 ## Data scources and refereces
 - https://en.wikipedia.org/wiki/List_of_largest_pharmaceutical_companies_by_revenue
-- 15 lastgest companies Twitter acocunts
+- 15 largest companies Twitter accounts
 - https://developer.twitter.com/en/docs
