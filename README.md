@@ -5,7 +5,7 @@ Belinda Parmar
 
 ## Project structure
 
-1. Found a business problem to work on - ["50 Companies That Get Twitter – and 50 That Don’t"](https://hbr.org/2015/04/the-best-and-worst-corporate-tweeters). Is AstraZeneca doing something differenlty than other pharmaceutical companies? What are the industry "standards" on Twitter?
+1. Found a business problem to work on - ["50 Companies That Get Twitter – and 50 That Don’t"](https://hbr.org/2015/04/the-best-and-worst-corporate-tweeters). Is any pharmaceutical company doing something differenlty than others? What are the industry "standards" on Twitter?
 2. Scraped data from 15 highest-earning pharmaceutical companies' Twitter accounts
 3. Cleaned data
 4. Explored data and created a document in Jupyter Notebook to show the code, outputs and my comments
