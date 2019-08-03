@@ -17,7 +17,21 @@ import wordcloud
 import matplotlib.pyplot as plt
 import nltk
 import PIL
+
+from scipy import stats
+import collections
+from collections import Counter
+import seaborn as sns
 ```
+
+# Project structure
+
+1. Found a business problem to work on - ["50 Companies That Get Twitter – and 50 That Don’t"](https://hbr.org/2015/04/the-best-and-worst-corporate-tweeters). Is AstraZeneca doing something differenlty than other pharmaceutical companies? What are the industry "standards" on Twitter?
+2. Scraped data from 15 highest-earning pharmaceutical companies' Twitter accounts
+3. Cleaned data
+4. Explored data and created a document in Jupyter Notebook to show the code, outputs and my comments
+5. Visualised the outcomes
+6. Presented it in front of the stakeholders at my company
 
 ## Data scources and refereces
 - https://en.wikipedia.org/wiki/List_of_largest_pharmaceutical_companies_by_revenue
