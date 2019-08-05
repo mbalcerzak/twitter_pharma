@@ -12,6 +12,11 @@ Belinda Parmar
 5. Visualised the outcomes
 6. Presented it in front of the stakeholders at my company
 
+## Project files
+
+data_analysis - contains the Jupyter Notebook document and code that created a wordcloud shaped like AZ's logo
+web_scraping - contains code used to scrape tweets of selected companies
+
 ## Packages used
 
 ```python
