@@ -40,5 +40,5 @@ import seaborn as sns
 
 ## Data scources and refereces
 - https://en.wikipedia.org/wiki/List_of_largest_pharmaceutical_companies_by_revenue
-- 15 largest companies Twitter accounts
+- 15 most profitable companies Twitter accounts
 - https://developer.twitter.com/en/docs
