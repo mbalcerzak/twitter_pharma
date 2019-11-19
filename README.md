@@ -3,6 +3,9 @@
 The reason behind creating this project is to analyse Pharma tweets using NLP methods in Python 3. I came up with that idea after stumbling upon Harvard Business Review [Twitter empathy scorings from 2015](https://twitter.com/harvardbiz/status/805712993384353792) and their article ["50 Companies That Get Twitter – and 50 That Don’t"](https://hbr.org/2015/04/the-best-and-worst-corporate-tweeters) by
 Belinda Parmar
 
+<img align="right" width="460" height="600" src="https://github.com/mbalcerzak/twitter_pharma/blob/master/az_.png">
+
+
 ## Project structure
 
 1. Found a business problem to work on - ["50 Companies That Get Twitter – and 50 That Don’t"](https://hbr.org/2015/04/the-best-and-worst-corporate-tweeters). Is any pharmaceutical company doing something differenlty than others? What are the industry "standards" on Twitter?
