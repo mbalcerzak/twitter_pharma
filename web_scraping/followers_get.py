@@ -68,7 +68,7 @@ def get_user_info(company):
 
     for i, follower in zip(range(len(followers_id_list)), followers_id_list):
         if (i + 1) % 1000 == 0:
-            print('(' + round(i/len(followers_id_list)) + + '%) users found.')
+            print('( {} %) users found.'.format(round(i/len(followers_id_list)))
         try:
             user_id = api.get_user(follower)
 
