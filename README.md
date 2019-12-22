@@ -35,9 +35,8 @@ import matplotlib.pyplot as plt
 import nltk
 import PIL
 
-from scipy import stats
+import scipy
 import collections
-from collections import Counter
 import seaborn as sns
 ```
 
